@@ -2,6 +2,7 @@ require 'machine'
 require 'robot'
 require 'html_report'
 require 'stringio'
+require 'productionline'
 
 describe HtmlReport do
   it 'should report the state of everything' do
@@ -19,9 +20,7 @@ describe HtmlReport do
     robot = Robot.new
     robot.move_to(extruder)
     robot.pick
-
-    out = StringIO.new
-    HtmlReport.report(out, line, robot)
+    report = HtmlReport.new(ProductionLine.new(line), robot)
 
     expected = <<END_OF_EXPECTED
 <h1>FACTORY REPORT</h1>
@@ -33,7 +32,7 @@ describe HtmlReport do
 <p>Robot location=extruder bin=paste</p>
 <hr>
 END_OF_EXPECTED
-    out.string.should == expected
+    report.to_s.should == expected
   end
 end
 

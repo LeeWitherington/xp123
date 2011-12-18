@@ -13,4 +13,12 @@ class Robot
     @location.put(@bin)
     @bin = nil
   end
+
+  def print_location report
+    report.print_location @location if @location != nil
+  end
+
+  def print_bin report
+    report.print_bin @bin if @bin != nil
+  end
 end

@@ -2,6 +2,7 @@ require 'machine'
 require 'robot'
 require 'report'
 require 'stringio'
+require 'productionline'
 
 describe Report do
   it 'should report the state of everything' do
@@ -20,8 +21,7 @@ describe Report do
     robot.move_to(extruder)
     robot.pick
 
-    out = StringIO.new
-    Report.report(out, line, robot)
+    report = Report.new(ProductionLine.new(line), robot)
 
     expected = <<END_OF_EXPECTED
 FACTORY REPORT
@@ -32,6 +32,6 @@ Machine oven bin=chips
 Robot location=extruder bin=paste
 ========
 END_OF_EXPECTED
-    out.string.should == expected
+    report.to_s.should == expected
   end
 end
