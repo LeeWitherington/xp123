@@ -3,6 +3,7 @@ require 'robot'
 require 'html_report'
 require 'stringio'
 require 'productionline'
+require 'standardreportformatter'
 
 describe HtmlReport do
   it 'should report the state of everything' do
@@ -20,7 +21,7 @@ describe HtmlReport do
     robot = Robot.new
     robot.move_to(extruder)
     robot.pick
-    report = HtmlReport.new(ProductionLine.new(line), robot)
+    report = HtmlReport.new(ProductionLine.new(line), robot, StandardReportFormatter.new)
 
     expected = <<END_OF_EXPECTED
 <h1>FACTORY REPORT</h1>

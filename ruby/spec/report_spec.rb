@@ -3,6 +3,7 @@ require 'robot'
 require 'report'
 require 'stringio'
 require 'productionline'
+require 'standardreportformatter'
 
 describe Report do
   it 'should report the state of everything' do
@@ -21,7 +22,7 @@ describe Report do
     robot.move_to(extruder)
     robot.pick
 
-    report = Report.new(ProductionLine.new(line), robot)
+    report = Report.new(ProductionLine.new(line), robot, StandardReportFormatter.new)
 
     expected = <<END_OF_EXPECTED
 FACTORY REPORT
